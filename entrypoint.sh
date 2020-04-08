@@ -31,8 +31,10 @@ function create_git_tag_and_release {
 }
 
 echo "------------- Script Starting ----------------------"
-
+get_latest_tag
+echo $latest_tag
 files=$(git diff --name-status $latest_tag HEAD | grep 'VERSION')
+echo $files
 
 if [ -z "$files" ];
 then
@@ -40,7 +42,6 @@ then
   exit $?
 else
   echo "Verison File has been updated, proceeding to tag"
-  get_latest_tag
   prepare_file_info
   prepare_github_info
   create_git_tag_and_release
