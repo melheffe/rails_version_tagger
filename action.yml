@@ -1,0 +1,14 @@
+name: 'Rails Tagger'
+description: 'Creates Release on every Version file change'
+author: 'Chris'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+outputs:
+  new_tag:
+    description: 'Release Created and Tagged'
+  tag:
+    description: 'The latest tag after running this action'
+branding:
+  icon: 'git-merge'
+  color: 'blue'
