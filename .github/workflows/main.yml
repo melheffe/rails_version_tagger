@@ -1,10 +1,8 @@
 name: Release Version
-
-on: [push]
+if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
 
 jobs:
   build:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
