@@ -13,9 +13,9 @@ jobs:
     - name: Bump version and push tag
       uses: melheffe/rails_version_tagger@master
       env:
-        PREPEND: v
-        APPEND:
-        DRAFT: true
-        PRERELEASE: true
+        PREPEND: 'v'
+        APPEND: ''
+        DRAFT: 'true'
+        PRERELEASE: 'true'
         TOKEN: ${{ secrets.TOKEN }}
         REPO_OWNER: melheffe

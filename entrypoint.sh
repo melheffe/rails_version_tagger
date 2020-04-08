@@ -1,28 +1,27 @@
 #!/bin/bash
 
 function get_latest_tag {
-  { latest_tag="$(git describe --abbrev=0 --tags)"; } 2>/dev/null
+  latest_tag=$(git tag | tail -1)
 }
 
 function get_current_info {
-  { current_branch="$(git rev-parse --abbrev-ref HEAD)"; } 2>/dev/null
+  current_branch=$(git rev-parse --abbrev-ref HEAD)
 }
 
 function prepare_file_info {
-  { version_on_file="$(cut -d " " -f 1 VERSION)"; } 2>/dev/null
+  version_on_file=$(cut -d " " -f 1 VERSION)
   if [[ $version_on_file == v* ]]; then version_on_file="$(echo $version_on_file | cut -c2-)"; fi
 }
 
 function prepare_github_info {
-  { remote="$(git config --get remote.origin.url)";} 2>/dev/null
-  { repo="$(basename $remote .git)";} 2>/dev/null
-  { latest_tag="$(git describe --abbrev=0 --tags)"; } 2>/dev/null
+  remote=$(git config --get remote.origin.url)
+  repo=$(basename $remote .git)
 }
 
 function set_release_notes {
-  { release_notes="$(git log $latest_tag..HEAD --oneline --merges)"; } 2>/dev/null
+  release_notes=$(git log $latest_tag..HEAD --oneline --merges)
   # Checking if the release notes are empty to get individual commits instead
-  if [ -z $release_notes ]; then { release_notes="$(git log $latest_tag..HEAD --oneline)"; } 2>/dev/null; fi
+  if [ -z $release_notes ]; then release_notes=$(git log $latest_tag..HEAD --oneline); fi
 
 }
 
@@ -37,8 +36,6 @@ ls -al
 echo "------------- Script Starting ----------------------"
 
 git fetch --prune-tags
-
-git rev-parse --abbrev-ref HEAD
 
 files=$(git diff --name-status $latest_tag HEAD | grep 'VERSION')
 
