@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function get_latest_tag {
-  latest_tag=$(git describe --abbrev=0 --tags)
+  latest_tag=$(git tag | tail -1)
 }
 
 function get_current_info {
@@ -16,7 +16,6 @@ function prepare_file_info {
 function prepare_github_info {
   { remote="$(git config --get remote.origin.url)";} 2>/dev/null
   { repo="$(basename $remote .git)";} 2>/dev/null
-  { latest_tag="$(git describe --abbrev=0 --tags)"; } 2>/dev/null
 }
 
 function set_release_notes {
