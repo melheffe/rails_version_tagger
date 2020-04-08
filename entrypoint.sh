@@ -32,6 +32,8 @@ function create_git_tag_and_release {
 
 cd $GITHUB_WORKSPACE/
 
+ls -al
+
 echo "------------- Script Starting ----------------------"
 
 git fetch --prune-tags
