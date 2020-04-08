@@ -1,0 +1,19 @@
+name: Release Version
+
+on: [push]
+
+jobs:
+  build:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Bump version and push tag
+        uses: melheffe/rails_version_tagger@master
+        env:
+          PREPEND: v
+          APPEND:
+          DRAFT: true
+          PRERELEASE: true
+          TOKEN: ${{ secrets.TOKEN }}
+          REPO_OWNER: melheffe
