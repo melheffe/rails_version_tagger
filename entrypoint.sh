@@ -38,7 +38,7 @@ echo "------------- Script Starting ----------------------"
 
 git fetch --prune-tags
 
-get_latest_tag
+git describe --abbrev=0 --tags
 
 files=$(git diff --name-status $latest_tag HEAD | grep 'VERSION')
 
