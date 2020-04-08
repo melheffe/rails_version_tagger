@@ -32,6 +32,8 @@ function create_git_tag_and_release {
 
 echo "------------- Script Starting ----------------------"
 
+cd ${GITHUB_WORKSPACE}
+
 git describe --abbrev=0 --tags
 
 git rev-parse --abbrev-ref HEAD
