@@ -36,9 +36,7 @@ ls -al
 
 echo "------------- Script Starting ----------------------"
 
-git fetch --prune-tags
-
-git describe --abbrev=0 --tags
+git rev-parse --abbrev-ref HEAD
 
 files=$(git diff --name-status $latest_tag HEAD | grep 'VERSION')
 
