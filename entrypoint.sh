@@ -1,15 +1,15 @@
 #!/bin/bash
 
 function get_latest_tag {
-  latest_tag=git describe --abbrev=0 --tags
+  latest_tag=$(git describe --abbrev=0 --tags)
 }
 
 function get_current_info {
-  current_branch=git rev-parse --abbrev-ref HEAD
+  current_branch=$(git rev-parse --abbrev-ref HEAD)
 }
 
 function prepare_file_info {
-  { version_on_file="$(cut -d " " -f 1 VERSION)"; } 2>/dev/null
+  version_on_file=$(cut -d " " -f 1 VERSION)
   if [[ $version_on_file == v* ]]; then version_on_file="$(echo $version_on_file | cut -c2-)"; fi
 }
 
