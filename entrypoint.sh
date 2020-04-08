@@ -1,11 +1,11 @@
 #!/bin/bash
 
 function get_latest_tag {
-  { latest_tag="$(git describe --abbrev=0 --tags)"; } 2>/dev/null
+  latest_tag=git describe --abbrev=0 --tags
 }
 
 function get_current_info {
-  { current_branch="$(git rev-parse --abbrev-ref HEAD)"; } 2>/dev/null
+  current_branch=git rev-parse --abbrev-ref HEAD
 }
 
 function prepare_file_info {
@@ -38,7 +38,8 @@ echo "------------- Script Starting ----------------------"
 
 git fetch --prune-tags
 
-git rev-parse --abbrev-ref HEAD
+get_latest_tag
+echo $latest_tag
 
 files=$(git diff --name-status $latest_tag HEAD | grep 'VERSION')
 
