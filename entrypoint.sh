@@ -26,7 +26,7 @@ function set_release_notes {
 }
 
 function create_git_tag_and_release {
-  curl --data  '{"tag_name": "'"$PREPEND$version_on_file$APPEND"'","target_commitish": "'"$current_branch"'","name": "'"Release $version_on_file"'","body": "'"Release $version_on_file"'","draft": "'"$DRAFT"'","prerelease": "'"$PRERELEASE"'"}' https://api.github.com/repos/$REPO_OWNER/$repo/releases?access_token=$TOKEN
+  curl --data  '{"tag_name": "'"$PREPEND$version_on_file$APPEND"'","target_commitish": "'"$current_branch"'","name": "'"Release $version_on_file"'","body": "'"Release $version_on_file"'","draft": false,"prerelease": true}' https://api.github.com/repos/$REPO_OWNER/$repo/releases?access_token=$TOKEN
 }
 
 cd $GITHUB_WORKSPACE/
