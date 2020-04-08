@@ -20,5 +20,3 @@ jobs:
         PRERELEASE: true
         TOKEN: ${{ secrets.TOKEN }}
         REPO_OWNER: melheffe
-      run: |
-        echo $PREPEND $APPEND $PRERELEASE $TOKEN $REPO_OWNER.
