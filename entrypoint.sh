@@ -30,8 +30,7 @@ function create_git_tag_and_release {
   curl --data  '{"tag_name": "'"$PREPEND$version_on_file$APPEND"'","target_commitish": "'"$current_branch"'","name": "'"Release $version_on_file"'","body": "'"Release $version_on_file"'","draft": "'"$DRAFT"'","prerelease": "'"$PRERELEASE"'"}' https://api.github.com/repos/$REPO_OWNER/$repo/releases?access_token=$TOKEN
 }
 
-source=${SOURCE:-.}
-cd ${GITHUB_WORKSPACE}/${source}
+cd $GITHUB_WORKSPACE/
 
 echo "------------- Script Starting ----------------------"
 
