@@ -30,10 +30,18 @@ function create_git_tag_and_release {
   curl --data  '{"tag_name": "'"$PREPEND$version_on_file$APPEND"'","target_commitish": "'"$current_branch"'","name": "'"Release $version_on_file"'","body": "'"Release $version_on_file"'","draft": "'"$DRAFT"'","prerelease": "'"$PRERELEASE"'"}' https://api.github.com/repos/$REPO_OWNER/$repo/releases?access_token=$TOKEN
 }
 
+cd $GITHUB_WORKSPACE/
+
+ls -al
+
 echo "------------- Script Starting ----------------------"
+
+git fetch --prune-tags
+
 get_latest_tag
-echo $latest_tag
+
 files=$(git diff --name-status $latest_tag HEAD | grep 'VERSION')
+
 echo $files
 
 if [ -z "$files" ];
