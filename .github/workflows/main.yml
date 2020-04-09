@@ -18,7 +18,7 @@ jobs:
       uses: melheffe/rails_version_tagger@master
       env:
         PREPEND: 'v'
-        APPEND: ''
+        APPEND: '.aws'
         DRAFT: 'true'
         PRERELEASE: 'true'
         TOKEN: ${{ secrets.TOKEN }}
