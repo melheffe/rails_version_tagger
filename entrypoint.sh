@@ -35,6 +35,7 @@ echo "------------- Script Starting ----------------------"
 
 git fetch --prune-tags
 
+get_current_info
 get_latest_tag
 
 echo $current_branch
