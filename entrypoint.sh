@@ -5,7 +5,7 @@ function get_latest_tag {
 }
 
 function get_current_info {
-  current_branch=$(git rev-parse --abbrev-ref HEAD)
+  current_branch=$TRIGGER
 }
 
 function prepare_file_info {
@@ -31,14 +31,13 @@ function create_git_tag_and_release {
 
 cd $GITHUB_WORKSPACE/
 
-ls -al
-
 echo "------------- Script Starting ----------------------"
 
 git fetch --prune-tags
 
 get_latest_tag
-echo $latest_tag
+
+echo $current_branch
 
 files=$(git diff --name-status $latest_tag HEAD | grep 'VERSION')
 
@@ -53,7 +52,6 @@ else
   prepare_file_info
   prepare_github_info
   create_git_tag_and_release
-  echo $release_notes
   exit $?
 fi
 echo "------------- Script Ending ----------------------"
