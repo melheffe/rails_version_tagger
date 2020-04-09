@@ -37,6 +37,8 @@ git fetch --prune-tags
 
 get_latest_tag
 
+get_current_info
+
 echo $current_branch
 
 files=$(git diff --name-status $latest_tag HEAD | grep 'VERSION')
