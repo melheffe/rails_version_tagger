@@ -23,4 +23,4 @@ jobs:
         PRERELEASE: 'true'
         TOKEN: ${{ secrets.TOKEN }}
         REPO_OWNER: melheffe
-        TRIGGER: ${{ github.ref }}
+        TRIGGER: ${{ github.event.pull_request.head.ref }}
