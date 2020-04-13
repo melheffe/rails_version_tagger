@@ -5,5 +5,5 @@ Tagger to maintain Rails version file in sync with Github Tags
 
 - Configurable Base branch for commits
 - Append and Prepend values for version labels
-- Pre-populate release NOTES with diff from the last tag
+- Pre-populate release NOTES with diff from the last tag.
 
