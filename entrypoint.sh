@@ -22,9 +22,9 @@ function prepare_github_info {
 }
 
 function set_release_notes {
-  release_notes=$(git log $latest_tag..HEAD --oneline --merges)
+  release_notes=$(git log $latest_tag..HEAD --merges --pretty=tformat:"%h %s")
   # Checking if the release notes are empty to get individual commits instead
-  if [ -z $release_notes ]; then release_notes=$(git log $latest_tag..HEAD --oneline); fi
+  if [ -z $release_notes ]; then release_notes=$(git log $latest_tag..HEAD --pretty=tformat:"%h %s"); fi
   echo $release_notes
 }
 
@@ -65,7 +65,7 @@ else
   prepare_file_info
   prepare_github_info
   result=$(create_git_tag_and_release)
-  echo $result
+  echo $result | jq .url
   exit $?
 fi
 echo "------------- Script Ending ----------------------"
