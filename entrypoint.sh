@@ -26,7 +26,19 @@ function set_release_notes {
 }
 
 function create_git_tag_and_release {
-  curl --data  '{"tag_name": "'"$PREPEND$version_on_file$APPEND"'","target_commitish": "'"$current_branch"'","name": "'"Release $version_on_file"'","body": "'"Release $version_on_file"'","draft": false,"prerelease": true}' https://api.github.com/repos/$REPO_OWNER/$repo/releases?access_token=$TOKEN
+  # POST a release to repo via Github API
+  curl -s -X POST https://api.github.com/repos/$REPO_OWNER/$repo/releases \
+  -H "Authorization: token $TOKEN" \
+  -d @- << EOF
+  {
+  "tag_name": "$PREPEND$version_on_file$APPEND",
+  "target_commitish": "$current_branch",
+  "name": "Release $version_on_file",
+  "body": "Release $version_on_file",
+  "draft": false,
+  "prerelease": true
+  }
+EOF
 }
 
 cd $GITHUB_WORKSPACE/
@@ -35,6 +47,7 @@ echo "------------- Script Starting ----------------------"
 
 git fetch --prune-tags
 
+get_current_info
 get_latest_tag
 
 get_current_info
