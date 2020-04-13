@@ -4,7 +4,8 @@ on:
   pull_request:
     types:
       - closed
-
+    branches:
+      - master
 jobs:
 
   build:
@@ -19,7 +20,7 @@ jobs:
       env:
         PREPEND: 'v'
         APPEND: '.aws'
-        DRAFT: 'true'
+        DRAFT: 'false'
         PRERELEASE: 'true'
         TOKEN: ${{ secrets.TOKEN }}
         REPO_OWNER: melheffe
