@@ -64,6 +64,7 @@ else
   echo "Version File has been updated, proceeding to tag"
   prepare_file_info
   prepare_github_info
+  set_release_notes
   result=$(create_git_tag_and_release)
   echo $result | jq .url
   exit $?
