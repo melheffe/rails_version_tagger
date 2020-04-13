@@ -23,7 +23,7 @@ function prepare_github_info {
 }
 
 function set_release_notes {
-  release_notes=$(git log $latest_tag..HEAD --merges --pretty=tformat:"%h %s")
+  release_notes=$(git log $latest_tag..HEAD --merges --pretty=tformat:"%h %s%n")
   # Checking if the release notes are empty to get individual commits instead
   if [ -z $release_notes ]; then release_notes=$(git log $latest_tag..HEAD --pretty=tformat:"%h %s"); fi
   echo "Release Notes:" $release_notes
@@ -44,14 +44,14 @@ function create_git_tag_and_release {
   }
 EOF
 }
-
 #cd $GITHUB_WORKSPACE/
-TOKEN="b53bbb533c6c64ed7b1f73efdf035ecf1cab33aa"
+TOKEN=${1}
 DRAFT=false
 PRERELEASE=true
 PREPEND='v'
 APPEND=''
 REPO_OWNER='melheffe'
+TRIGGER='master'
 
 echo "------------- Script Starting ----------------------"
 
@@ -63,7 +63,7 @@ get_current_info
 
 files=$(git diff --name-status $latest_tag HEAD | grep 'VERSION')
 
-echo $files
+echo $TOKEN
 
 if [ -z "$files" ];
 then
