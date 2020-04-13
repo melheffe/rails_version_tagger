@@ -22,7 +22,6 @@ function set_release_notes {
   release_notes=$(git log $latest_tag..HEAD --oneline --merges)
   # Checking if the release notes are empty to get individual commits instead
   if [ -z $release_notes ]; then release_notes=$(git log $latest_tag..HEAD --oneline); fi
-
 }
 
 function create_git_tag_and_release {
@@ -34,9 +33,9 @@ function create_git_tag_and_release {
   "tag_name": "$PREPEND$version_on_file$APPEND",
   "target_commitish": "$current_branch",
   "name": "Release $version_on_file",
-  "body": "Release $version_on_file",
-  "draft": false,
-  "prerelease": true
+  "body": "$release_notes",
+  "draft": $DRAFT,
+  "prerelease": $PRERELEASE
   }
 EOF
 }
@@ -47,23 +46,18 @@ echo "------------- Script Starting ----------------------"
 
 git fetch --prune-tags
 
-get_current_info
 get_latest_tag
 
 get_current_info
 
-echo $current_branch
-
 files=$(git diff --name-status $latest_tag HEAD | grep 'VERSION')
-
-echo $files
 
 if [ -z "$files" ];
 then
   echo "Nothing to tag!";
   exit $?
 else
-  echo "Verison File has been updated, proceeding to tag"
+  echo "Version File has been updated, proceeding to tag"
   prepare_file_info
   prepare_github_info
   create_git_tag_and_release
